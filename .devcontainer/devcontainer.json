@@ -1,0 +1,1 @@
+{"customizations":{"vscode":{"extensions":["ms-dotnettools.csharp","ms-azuretools.vscode-bicep","ms-azuretools.vscode-azurefunctions"]}},"features":{"ghcr.io/devcontainers/features/azure-cli:1":{}},"image":"mcr.microsoft.com/devcontainers/dotnet:1-8-bookworm","name":"bicep-azure","postCreateCommand":"dotnet restore"}

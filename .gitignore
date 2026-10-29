@@ -1,0 +1,36 @@
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/*
+
+## NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+
+## Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## Publish output
+publish/
+
+## Azure Functions local settings (may contain connection strings)
+src/FunctionsDemo/local.settings.json
+
+## Bicep build artifacts (compiled ARM JSON is generated, not source)
+infra/**/*.json
+!infra/**/*.bicepparam
+
+## Azure CLI / deployment leftovers
+.azure/

@@ -1,0 +1,42 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  bicep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The standalone Bicep binary needs no Azure login: build and lint
+      # are pure compile-time checks, so they run on every push.
+      - name: Install Bicep CLI
+        run: |
+          curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+          chmod +x bicep
+          sudo mv bicep /usr/local/bin/bicep
+          bicep --version
+
+      - name: Bicep build (main template + every module)
+        run: |
+          bicep build infra/main.bicep
+          for f in infra/modules/*.bicep; do bicep build "$f"; done
+
+      - name: Bicep lint
+        run: bicep lint infra/main.bicep
+
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build
+        run: dotnet build bicep-azure.sln --nologo
+
+      - name: Test
+        run: dotnet test bicep-azure.sln --no-build --nologo
